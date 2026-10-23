@@ -1,119 +1,193 @@
 /*
   PROYECTOS DEL PORTAFOLIO
   ------------------------
-  Cada objeto es una tarjeta de la grilla. Para agregar o reemplazar un proyecto:
+  Cada objeto es una tarjeta de la grilla, en el orden en que aparece. Para agregar un proyecto:
 
-  1. Sube tus imágenes a assets/img/ (JPG o WebP, ~2000 px de lado mayor).
-  2. Escribe sus rutas en "imagenes". La primera es la portada de la tarjeta.
-  3. Completa los textos y cambia "ejemplo" a false.
+  1. Sube sus imágenes a assets/img/<nombre-del-proyecto>/ (JPG, ~2000 px de lado mayor).
+  2. Duplica un bloque { ... } y completa los textos.
+  3. La primera ruta de "imagenes" es la portada de la tarjeta.
 
   categoria: "institucional" | "exposiciones" | "editorial" | "festivales"
-  ancho:     columnas que ocupa en escritorio, de 12 (4, 8 o 12)
-  arte:      composición de reserva mientras no haya imágenes; puede quedar vacío.
+  ancho:     columnas que ocupa en escritorio, de 12 (4 u 8). Usa 8 para portadas horizontales.
+  encuadre:  "cubrir" recorta la foto para llenar la tarjeta (fotografías de sala);
+             "contener" muestra la pieza completa sobre fondo claro (afiches, catálogos, programas).
 */
 window.PROYECTOS = [
   {
-    ejemplo: true,
-    categoria: "festivales",
-    titulo: "Identidad para un festival de artes",
+    categoria: "exposiciones",
+    titulo: "Patrimonio y memoria de la Universidad de Piura",
+    anio: "2024",
+    institucion: "Dirección de Patrimonio Cultural Universitario, UDEP",
+    rol: "Diseño y diagramación de paneles",
+    descripcion: "Muestra itinerante que pone en valor las colecciones de patrimonio cultural que custodia la Universidad de Piura: bibliográfico, fotográfico y artístico. Diseñé un sistema de 17 paneles de gran formato que se montó en espacios públicos de Lima y en el campus de Piura, con casi 40 metros lineales de exposición.",
+    ficha: [["Piezas", "17 paneles"], ["Formato", "220 × 170 cm"], ["Extensión", "Casi 40 m lineales"], ["Sedes", "Pasaje Santa Rosa (Centro de Lima), Parque Kennedy (Miraflores) y campus Piura"], ["Créditos", "Universidad de Piura"]],
+    imagenes: [
+      "assets/img/patrimonio-y-memoria-udep-2024/01-portada.jpg",
+      "assets/img/patrimonio-y-memoria-udep-2024/02-sala.jpg",
+      "assets/img/patrimonio-y-memoria-udep-2024/03-sala.jpg",
+      "assets/img/patrimonio-y-memoria-udep-2024/04-sala.jpg",
+      "assets/img/patrimonio-y-memoria-udep-2024/05-sala.jpg",
+      "assets/img/patrimonio-y-memoria-udep-2024/06-detalle.jpg",
+      "assets/img/patrimonio-y-memoria-udep-2024/07-detalle.jpg"
+    ],
+    ancho: 8,
+    encuadre: "cubrir"
+  },
+  {
+    categoria: "exposiciones",
+    titulo: "Expediciones a Chachapoyas de Federico Kauffmann Doig",
+    anio: "2025",
+    institucion: "Dirección de Patrimonio Cultural Universitario, UDEP",
+    rol: "Diseño y diagramación de paneles",
+    descripcion: "Exposición que reseña las expediciones del arqueólogo Federico Kauffmann Doig a Chachapoyas, entre ellas el hallazgo de los mausoleos de Los Pinchudos. Diagramé 22 paneles instalados al aire libre en el campus de la Universidad de Piura, unificados por un amarillo intenso y una retícula común para texto e imagen.",
+    ficha: [["Piezas", "22 paneles"], ["Formato", "86 × 107 cm"], ["Sede", "Universidad de Piura, campus Piura"], ["Créditos", "Universidad de Piura"]],
+    imagenes: [
+      "assets/img/expediciones-chachapoyas-2025/01-portada.jpg",
+      "assets/img/expediciones-chachapoyas-2025/02-sala.jpg",
+      "assets/img/expediciones-chachapoyas-2025/03-sala.jpg",
+      "assets/img/expediciones-chachapoyas-2025/04-sala.jpg",
+      "assets/img/expediciones-chachapoyas-2025/05-detalle.jpg"
+    ],
+    ancho: 4,
+    encuadre: "contener"
+  },
+  {
+    categoria: "exposiciones",
+    titulo: "30 años: Edificio de Gobierno",
     anio: "2026",
-    institucion: "[Nombre del festival]",
-    rol: "Concepto, identidad y piezas gráficas",
-    descripcion: "Sistema gráfico para una edición anual: afiche principal, programa de mano, banderolas y piezas para redes, todos derivados de las mismas formas y la misma paleta.",
-    ficha: [["Piezas", "Afiche, programa, banderolas, credenciales"], ["Formatos", "A2 · A5 · 80 × 200 cm"], ["Color", "Tres tintas planas"]],
-    imagenes: [],
-    ancho: 8,
-    arte: '<div class="canvas c-poster"><div class="poster"></div><div class="poster b"></div></div>'
-  },
-  {
-    ejemplo: true,
-    categoria: "institucional",
-    titulo: "Identidad para un museo comunitario",
-    anio: "2025",
-    institucion: "[Nombre de la institución]",
-    rol: "Identidad visual y manual de marca",
-    descripcion: "Logotipo, paleta y tipografía institucional pensados para convivir con las colecciones sin competir con ellas.",
-    ficha: [["Entregables", "Logotipo, manual, plantillas"], ["Paleta", "Tres colores + neutros"], ["Aplicaciones", "Sala, web, papelería"]],
-    imagenes: [],
+    institucion: "Dirección de Patrimonio Cultural Universitario, UDEP",
+    rol: "Diseño y diagramación de paneles",
+    descripcion: "Exposición fotográfica por los 30 años del Edificio de Gobierno de la Universidad de Piura, uno de los edificios emblemáticos del campus. Diseñé 10 paneles que combinan fotografías de archivo y textos sobre la historia del edificio; la portada parte del dibujo de su elevación principal.",
+    ficha: [["Piezas", "10 paneles"], ["Formato", "86 × 107 cm"], ["Sede", "Universidad de Piura, campus Piura"], ["Créditos", "Universidad de Piura"]],
+    imagenes: [
+      "assets/img/30-anos-edificio-de-gobierno-2026/01-portada.jpg",
+      "assets/img/30-anos-edificio-de-gobierno-2026/02-sala.jpg",
+      "assets/img/30-anos-edificio-de-gobierno-2026/03-sala.jpg",
+      "assets/img/30-anos-edificio-de-gobierno-2026/04-sala.jpg",
+      "assets/img/30-anos-edificio-de-gobierno-2026/05-detalle.jpg"
+    ],
     ancho: 4,
-    arte: '<div class="canvas c-identity"><div class="mark"></div></div>'
+    encuadre: "contener"
   },
   {
-    ejemplo: true,
     categoria: "exposiciones",
-    titulo: "Paneles para una muestra de patrimonio",
+    titulo: "El Perú y los peruanos: la visión de Francisco González Gamarra",
     anio: "2025",
-    institucion: "[Museo o centro cultural]",
-    rol: "Diseño gráfico expositivo",
-    descripcion: "Sistema de paneles en tres núcleos temáticos con un color por sala y texto introductorio en el panel central.",
-    ficha: [["Piezas", "12 paneles · 48 cartelas"], ["Formato", "100 × 200 cm"], ["Soporte", "Foam board 10 mm"]],
-    imagenes: [],
-    ancho: 4,
-    arte: '<div class="canvas c-panels"><i></i><i></i><i></i></div>'
-  },
-  {
-    ejemplo: true,
-    categoria: "editorial",
-    titulo: "Catálogo de exposición colectiva",
-    anio: "2024",
-    institucion: "[Galería o editorial]",
-    rol: "Diseño editorial y preprensa",
-    descripcion: "Catálogo con ensayo curatorial, láminas a sangre y fichas técnicas de cada obra, preparado para impresión offset.",
-    ficha: [["Páginas", "96"], ["Formato", "17 × 24 cm"], ["Papel", "Estucado mate 150 g/m²"]],
-    imagenes: [],
+    institucion: "Patrimonio Cultural Universitario UDEP y Gerencia de Cultura de la Municipalidad de Lima",
+    rol: "Materiales gráficos de la exposición",
+    descripcion: "Muestra pictórica del artista cusqueño Francisco González Gamarra, organizada para difundir su obra y la labor de la Universidad de Piura en la custodia del patrimonio. Diseñé la gráfica de sala: el muro de título, una línea de tiempo de 1890 a 1972 en vinil de corte, los paneles de las vitrinas y los rótulos de obra.",
+    ficha: [["Piezas", "Muro de título, línea de tiempo, paneles de vitrina, rótulos"], ["Formatos", "De 150 a 300 cm"], ["Técnica", "Vinil de corte"], ["Sede", "Galería Pancho Fierro, Municipalidad de Lima"], ["Créditos", "Patrimonio Cultural UDEP · Archivo Universidad de Piura"]],
+    imagenes: [
+      "assets/img/gonzalez-gamarra-pancho-fierro-2024/01-portada.jpg",
+      "assets/img/gonzalez-gamarra-pancho-fierro-2024/02-sala.jpg",
+      "assets/img/gonzalez-gamarra-pancho-fierro-2024/04-sala.jpg",
+      "assets/img/gonzalez-gamarra-pancho-fierro-2024/03-detalle.jpg"
+    ],
     ancho: 8,
-    arte: '<div class="canvas c-spread"><div class="book"><div class="pg"></div><div class="pg"></div></div></div>'
+    encuadre: "cubrir"
   },
   {
-    ejemplo: true,
-    categoria: "festivales",
-    titulo: "Piezas para un encuentro cultural",
-    anio: "2024",
-    institucion: "[Organización]",
-    rol: "Diseño de piezas de difusión",
-    descripcion: "Banderolas de calle y señalética temporal para orientar al público entre sedes.",
-    ficha: [["Piezas", "Banderolas, señalética, redes"], ["Formato", "80 × 200 cm"], ["Sedes", "[Número de sedes]"]],
-    imagenes: [],
-    ancho: 4,
-    arte: '<div class="canvas c-banderolas"><i></i><i></i><i></i></div>'
-  },
-  {
-    ejemplo: true,
-    categoria: "institucional",
-    titulo: "Aplicaciones de marca institucional",
-    anio: "2023",
-    institucion: "[Nombre de la institución]",
-    rol: "Aplicaciones y papelería",
-    descripcion: "Hoja membretada, sobres, tarjetas y credenciales que aplican el manual de marca de forma consistente.",
-    ficha: [["Piezas", "Papelería, credenciales, plantillas"], ["Formatos", "A4 · DL · 9 × 5,5 cm"]],
-    imagenes: [],
-    ancho: 4,
-    arte: '<div class="canvas c-papeleria"><i></i><i></i><i></i></div>'
-  },
-  {
-    ejemplo: true,
-    categoria: "exposiciones",
-    titulo: "Gráfica de sala y cartelas",
-    anio: "2023",
-    institucion: "[Museo o centro cultural]",
-    rol: "Vinilos, cartelas y textos de sala",
-    descripcion: "Vinilo de título, textos de sala y cartelas con jerarquía legible a distancia.",
-    ficha: [["Muro", "[Metros lineales]"], ["Cartelas", "15 × 10 cm"], ["Cuerpo mínimo", "24 pt"]],
-    imagenes: [],
-    ancho: 4,
-    arte: '<div class="canvas c-wall"><div class="vinilo">Archivo abierto<small>SALA III · FOTOGRAFÍA</small></div><div class="marcos"><i></i><i></i><i></i><i></i></div></div>'
-  },
-  {
-    ejemplo: true,
     categoria: "editorial",
-    titulo: "Serie de publicaciones institucionales",
-    anio: "2022",
-    institucion: "[Institución]",
-    rol: "Diseño de colección editorial",
-    descripcion: "Portadas y maqueta interior para una colección de publicaciones con un sistema común de retícula y color.",
-    ficha: [["Títulos", "3"], ["Formato", "17 × 24 cm"], ["Encuadernación", "Rústica cosida"]],
-    imagenes: [],
-    ancho: 12,
-    arte: '<div class="canvas c-cover"><div class="cv"></div><div class="cv"></div><div class="cv"></div></div>'
+    titulo: "Francisco González Gamarra, el arte de retratar",
+    anio: "2025",
+    institucion: "Patrimonio Cultural Universitario UDEP, Pinacoteca Municipal Ignacio Merino y Municipalidad de Lima",
+    rol: "Diseño del catálogo de obras",
+    descripcion: "Catálogo de la exposición presentada en la Pinacoteca Municipal Ignacio Merino. Diseñé el catálogo de obras en formato cuadrado, con fondos de papel envejecido y negro que dan protagonismo a los retratos del artista cusqueño y a sus fichas técnicas.",
+    ficha: [["Pieza", "Catálogo de obras"], ["Formato", "25 × 25 cm"], ["Sede", "Pinacoteca Municipal Ignacio Merino, Lima"]],
+    imagenes: [
+      "assets/img/catalogo-el-arte-de-retratar-2025/01-portada.jpg",
+      "assets/img/catalogo-el-arte-de-retratar-2025/02-portada.jpg",
+      "assets/img/catalogo-el-arte-de-retratar-2025/03-detalle.jpg",
+      "assets/img/catalogo-el-arte-de-retratar-2025/04-detalle.jpg",
+      "assets/img/catalogo-el-arte-de-retratar-2025/05-detalle.jpg"
+    ],
+    ancho: 4,
+    encuadre: "contener"
+  },
+  {
+    categoria: "editorial",
+    titulo: "Entre cielo y tierra: la visión de Alexander von Humboldt",
+    anio: "2025",
+    institucion: "Centro Cultural UDEP · Colección Michael Hein",
+    rol: "Diseño del afiche y el tríptico de la exposición",
+    descripcion: "Piezas gráficas para la exposición de la colección de Michael Hein, coleccionista y estudioso de la vida e impacto de Alexander von Humboldt. Diseñé el afiche de difusión y un tríptico informativo con los temas de la muestra, la cronología del viaje y textos sobre su paso por América.",
+    ficha: [["Piezas", "Afiche y tríptico"], ["Formato", "Tríptico A4"], ["Sede", "Centro Cultural UDEP, Casona Pardo, Miraflores"]],
+    imagenes: [
+      "assets/img/entre-el-cielo-y-la-tierra-2025/01-portada.jpg",
+      "assets/img/entre-el-cielo-y-la-tierra-2025/02-brochure.jpg",
+      "assets/img/entre-el-cielo-y-la-tierra-2025/03-brochure.jpg"
+    ],
+    ancho: 4,
+    encuadre: "contener"
+  },
+  {
+    categoria: "exposiciones",
+    titulo: "Pedro R. Cateriano Delgado, poeta y pionero de la gestión cultural en el Perú",
+    anio: "2023",
+    institucion: "Centro Cultural UDEP",
+    rol: "Diseño y diagramación de paneles",
+    descripcion: "Homenaje a Pedro Cateriano Delgado en agradecimiento por la donación de su biblioteca a la Universidad de Piura. Diseñé 8 paneles que combinan collages de recortes de prensa, fotografías y portadas de sus publicaciones para recordar al poeta y pionero de la gestión cultural.",
+    ficha: [["Piezas", "8 paneles"], ["Formato", "120 × 180 cm"], ["Sede", "Centro Cultural UDEP, Casona Pardo, Miraflores"], ["Créditos", "Universidad de Piura"]],
+    imagenes: [
+      "assets/img/pedro-cateriano-delgado-2023/01-portada.jpg",
+      "assets/img/pedro-cateriano-delgado-2023/02-sala.jpg",
+      "assets/img/pedro-cateriano-delgado-2023/03-sala.jpg",
+      "assets/img/pedro-cateriano-delgado-2023/04-sala.jpg",
+      "assets/img/pedro-cateriano-delgado-2023/05-detalle.jpg"
+    ],
+    ancho: 4,
+    encuadre: "cubrir"
+  },
+  {
+    categoria: "exposiciones",
+    titulo: "Patrimonio cultural de la Universidad de Piura",
+    anio: "2024",
+    institucion: "Dirección de Patrimonio Cultural Universitario, UDEP",
+    rol: "Diseño y diagramación de paneles",
+    descripcion: "Exposición que pone en valor las colecciones de patrimonio cultural que custodia la Universidad de Piura, desde piezas arqueológicas hasta sus edificios históricos. Diseñé y diagramé 17 paneles para la galería de arte del Parque de la Amistad, en Surco.",
+    ficha: [["Piezas", "17 paneles"], ["Formato", "200 × 150 cm"], ["Sede", "Galería del Parque de la Amistad, Surco"], ["Créditos", "Universidad de Piura"]],
+    imagenes: [
+      "assets/img/patrimonio-udep-surco-2024/02-sala.jpg",
+      "assets/img/patrimonio-udep-surco-2024/01-portada.jpg",
+      "assets/img/patrimonio-udep-surco-2024/03-sala.jpg",
+      "assets/img/patrimonio-udep-surco-2024/04-detalle.jpg",
+      "assets/img/patrimonio-udep-surco-2024/05-detalle.jpg"
+    ],
+    ancho: 4,
+    encuadre: "cubrir"
+  },
+  {
+    categoria: "editorial",
+    titulo: "Francisco González Gamarra en Cusco",
+    anio: "2025",
+    institucion: "Patrimonio Cultural Universitario UDEP, Caja Cusco, Ministerio de Cultura y Sociedad Pro Cultura Clorinda Matto de Turner",
+    rol: "Diseño de los brochures de exposición",
+    descripcion: "Brochures de sala para dos exposiciones del artista en Cusco: «Artista cusqueño universal», en el Museo Histórico Regional, y «Corpus Christi en Cusco», en la Sociedad Pro Cultura Clorinda Matto de Turner. Cada pieza reúne biografía, textos curatoriales e imágenes de obra, con un color propio para cada muestra.",
+    ficha: [["Piezas", "2 brochures"], ["Formato", "A4 plegado a A5"], ["Sedes", "Museo Histórico Regional del Cusco · Sociedad Pro Cultura Clorinda Matto de Turner"]],
+    imagenes: [
+      "assets/img/catalogo-gonzalez-gamarra-cusco-2025/01-portada.jpg",
+      "assets/img/catalogo-gonzalez-gamarra-cusco-2025/02-reverso.jpg",
+      "assets/img/catalogo-gonzalez-gamarra-cusco-2025/03-portada.jpg",
+      "assets/img/catalogo-gonzalez-gamarra-cusco-2025/04-reverso.jpg"
+    ],
+    ancho: 4,
+    encuadre: "contener"
+  },
+  {
+    categoria: "editorial",
+    titulo: "Da Capo, un reencuentro con el piano",
+    anio: "2025",
+    institucion: "Centro Cultural UDEP",
+    rol: "Diseño y diagramación del programa de mano",
+    descripcion: "Programa de mano para el concierto del pianista Arturo Hernández Chávez en la Universidad de Piura. Diseñé la pieza con portada en negro y dorado, la biografía del intérprete, los textos de presentación y la página de instituciones aliadas y auspiciadores.",
+    ficha: [["Pieza", "Programa de mano"], ["Formato", "A4 plegado a A5"], ["Sede", "Universidad de Piura, Piura"]],
+    imagenes: [
+      "assets/img/da-capo-programa-2025/01-portada.jpg",
+      "assets/img/da-capo-programa-2025/02-pagina.jpg",
+      "assets/img/da-capo-programa-2025/03-pagina.jpg",
+      "assets/img/da-capo-programa-2025/04-pagina.jpg"
+    ],
+    ancho: 4,
+    encuadre: "contener"
   }
 ];

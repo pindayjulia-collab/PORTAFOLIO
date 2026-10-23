@@ -270,6 +270,7 @@ em{font-style:italic}
 .obra.w12{--span:12;--ratio:21/9}
 .obra .arte{position:relative;overflow:hidden;aspect-ratio:var(--ratio);max-width:100%;background:var(--surface)}
 .obra .arte img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
+.obra.contener .arte img{object-fit:contain;padding:7%}
 .obra:hover .canvas,.obra:focus-visible .canvas,.obra:hover .arte img,.obra:focus-visible .arte img{transform:scale(var(--image-focus-scale))}
 .image-overlay{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:space-between;padding:20px;background:linear-gradient(to top,rgba(0,0,0,.55),transparent 55%);opacity:0;transition:var(--t);color:#fff;font-size:.8rem;letter-spacing:.05em}
 .image-overlay svg{width:22px;height:22px}

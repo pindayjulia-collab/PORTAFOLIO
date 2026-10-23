@@ -17,15 +17,12 @@ assets/img/         Fotografías del portafolio
 1. Copia las imágenes en `assets/img/` (JPG o WebP, unos 2000 px de lado mayor, menos de 500 KB cada una).
 2. Abre `js/proyectos.js`, duplica un bloque `{ ... }` y completa título, año, institución, rol, descripción y ficha técnica.
 3. Escribe las rutas en `imagenes`, por ejemplo `["assets/img/festival-afiche.jpg", "assets/img/festival-programa.jpg"]`. La primera es la portada.
-4. Cambia `ejemplo: true` por `ejemplo: false`. Cuando ningún proyecto sea de ejemplo, el aviso bajo la grilla desaparece solo.
+4. Elige `encuadre: "cubrir"` para fotografías de sala o `"contener"` para afiches, catálogos y programas.
+5. Los filtros de la grilla muestran solo las áreas que tienen proyectos.
 
-## Datos por completar en `index.html`
+## Imágenes
 
-- Correo de contacto (`tucorreo@dominio.com`, aparece dos veces).
-- Formación, herramientas y ciudad en la sección «Sobre mí».
-- Enlaces reales de Instagram, Behance y LinkedIn en el pie de página.
-- Retrato: guarda tu foto como `assets/img/retrato.jpg` y aparecerá automáticamente.
-- Imagen para redes: `assets/img/og.jpg` (1200 × 630 px) y descomenta la etiqueta `og:image`.
+Cada proyecto tiene su carpeta en `assets/img/`, con archivos JPG numerados (`01-portada.jpg`, `02-sala.jpg`…) de 2000 px en el lado mayor. Para sumar un retrato, guárdalo como `assets/img/retrato.jpg` y aparecerá en «Sobre mí».
 
 ## Publicar con GitHub Pages
 

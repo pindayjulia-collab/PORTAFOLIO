@@ -55,12 +55,15 @@
     : p.arte || '<div class="canvas c-labels"></div>';
 
   grid.innerHTML = projects.map((p, i) => `
-    <button class="obra w${p.ancho || 4}" type="button" data-cat="${p.categoria}" data-i="${i}" aria-label="Ver ${p.titulo}">
+    <button class="obra w${p.ancho || 4}${p.encuadre === 'contener' ? ' contener' : ''}" type="button" data-cat="${p.categoria}" data-i="${i}" aria-label="Ver ${p.titulo}">
       <div class="arte">${coverFor(p)}<div class="image-overlay"><span>${NOMBRES_CATEGORIA[p.categoria] || ''}</span><svg><use href="#i-lupa"/></svg></div></div>
       <div class="cap"><h3>${p.titulo}</h3><span>${p.anio}</span></div>
       <p class="meta">${p.ejemplo ? '<span class="tag-ejemplo">Ejemplo</span>' : ''}${p.institucion}</p>
     </button>`).join('');
   $('#aviso').hidden = !projects.some((p) => p.ejemplo);
+  $$('.chip').forEach((chip) => {
+    chip.hidden = chip.dataset.f !== 'todos' && !projects.some((p) => p.categoria === chip.dataset.f);
+  });
 
   /* Filtros con transición de galería (GSAP Flip si está disponible) */
   const chips = $$('.chip');
