@@ -267,7 +267,7 @@
   gsap.registerPlugin(ScrollTrigger);
   root.classList.add('cine');
 
-  const ART = { navy: '#000080', beige: '#F5F5DC', green: '#006400', brown: '#A52A2A', paper: '#FBFAF5' };
+  const ART = { navy: '#003153', beige: '#F5F5DC', green: '#006400', brown: '#C2701E', paper: '#FBFAF5' };
   const camera = $('#camara');
   const world = $('#mundo');
   const piece = $('#pieza');
