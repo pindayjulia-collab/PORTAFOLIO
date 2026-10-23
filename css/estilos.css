@@ -324,6 +324,11 @@ em{font-style:italic}
 .carrusel-controles{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:28px}
 .carrusel-estado{font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
 .carrusel-botones{display:flex;gap:8px}
+/* La animación ya presenta la sección: el encabezado sigue de cerca y sin repetir el título */
+#proyectos{padding-top:clamp(28px,4vw,48px)}
+#proyectos .sec-head{margin-bottom:clamp(28px,4vw,44px)}
+.cine #proyectos .sec-head .eyebrow{display:none}
+.cine #proyectos .sec-head h2{margin-top:0}
 .aviso{margin-top:48px;font-size:.78rem;color:var(--muted)}
 .aviso code{font-size:.9em}
 
@@ -445,7 +450,7 @@ details p{margin-top:8px;font-size:.8rem;color:var(--muted);max-width:40ch}
   .cine .indice{left:var(--gutter-l);right:var(--gutter-r);justify-content:space-between;gap:8px}
   .indice button{font-size:.62rem;letter-spacing:.08em}
   .cine .pista{display:none}
-  .cine .salida{bottom:calc(50% + 10px)}
+  .cine .salida{bottom:calc(10% + env(safe-area-inset-bottom,0px))}
 }
 @media (max-width:600px){
   .carrusel{--alto:min(98vw,460px);--reposo:min(76vw,360px)}

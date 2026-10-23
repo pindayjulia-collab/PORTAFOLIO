@@ -390,7 +390,7 @@
         /* Salida: el afiche se vuelve miniatura e introduce la grilla de proyectos */
         .to(scenes[4], { autoAlpha: 0, y: -40, duration: 0.5 }, 9)
         .to('.confeti', { autoAlpha: 0, scale: 0, stagger: 0.01, duration: 0.5 }, 9)
-        .to(piece, { scale: 0.34, rotation: 0, duration: 1 }, 9)
+        .to(piece, { scale: 0.34, rotation: 0, y: k < 1 ? U * 0.62 : 0, duration: 1 }, 9)
         .to('.salida', { autoAlpha: 1, duration: 0.5 }, 9.4);
     });
     markIndex(0);
