@@ -47,42 +47,132 @@
   }), { rootMargin: '-45% 0px -50% 0px' });
   $$('main > section[id]').forEach((s) => sectionObserver.observe(s));
 
-  /* ---------- Proyectos ---------- */
+  /* ---------- Proyectos: carrusel con filtros ---------- */
   const projects = window.PROYECTOS || [];
-  const grid = $('#grilla');
+  const track = $('#grilla');
+  const carousel = $('#carrusel');
+  const statusLine = $('#carrusel-estado');
+  const pauseButton = $('#car-pausa');
+  const chips = $$('.chip');
+  const filterBar = $('.filtros');
+  const indicator = $('.chip-ind');
+  let visible = projects.map((p, i) => i);
+  let activeFilter = 'todos';
+
   const coverFor = (p) => p.imagenes && p.imagenes.length
     ? `<img src="${p.imagenes[0]}" alt="${p.titulo}" loading="lazy">`
     : p.arte || '<div class="canvas c-labels"></div>';
-
-  grid.innerHTML = projects.map((p, i) => `
-    <button class="obra w${p.ancho || 4}${p.encuadre === 'contener' ? ' contener' : ''}" type="button" data-cat="${p.categoria}" data-i="${i}" aria-label="Ver ${p.titulo}">
-      <div class="arte">${coverFor(p)}<div class="image-overlay"><span>${NOMBRES_CATEGORIA[p.categoria] || ''}</span><svg><use href="#i-lupa"/></svg></div></div>
+  const cardFor = (i, isClone) => {
+    const p = projects[i];
+    return `
+    <button class="obra${p.encuadre === 'contener' ? ' contener' : ''}" type="button" data-i="${i}"${isClone ? ' aria-hidden="true" tabindex="-1" inert' : ''} aria-label="Ver ${p.titulo}">
+      <div class="arte">${coverFor(p)}<div class="image-overlay"><span>Ver proyecto</span><svg><use href="#i-flecha"/></svg></div></div>
       <div class="cap"><h3>${p.titulo}</h3><span>${p.anio}</span></div>
       <p class="meta">${p.ejemplo ? '<span class="tag-ejemplo">Ejemplo</span>' : ''}${p.institucion}</p>
-    </button>`).join('');
+      <div class="extracto"><p>${p.descripcion}</p></div>
+    </button>`;
+  };
+
   $('#aviso').hidden = !projects.some((p) => p.ejemplo);
-  $$('.chip').forEach((chip) => {
-    chip.hidden = chip.dataset.f !== 'todos' && !projects.some((p) => p.categoria === chip.dataset.f);
+  chips.forEach((chip) => {
+    const count = chip.dataset.f === 'todos' ? projects.length : projects.filter((p) => p.categoria === chip.dataset.f).length;
+    chip.hidden = count === 0;
+    chip.querySelector('.chip-n').textContent = count;
   });
 
-  /* Filtros con transición de galería (GSAP Flip si está disponible) */
-  const chips = $$('.chip');
-  const cards = $$('.obra', grid);
-  const applyFilter = (filter) => {
-    grid.classList.toggle('filtrado', filter !== 'todos');
-    cards.forEach((card) => { card.hidden = filter !== 'todos' && card.dataset.cat !== filter; });
+  /* Indicador que se desliza entre filtros */
+  const moveIndicator = () => {
+    const chip = chips.find((c) => c.getAttribute('aria-pressed') === 'true');
+    if (!chip || !indicator) return;
+    indicator.style.width = chip.offsetWidth + 'px';
+    indicator.style.height = chip.offsetHeight + 'px';
+    indicator.style.transform = `translate(${chip.offsetLeft}px, ${chip.offsetTop}px)`;
+    filterBar.classList.add('con-ind');
   };
+
+  /* Deriva automática */
+  const SPEED = 22; // píxeles por segundo
+  let position = 0;
+  let loopWidth = 0;
+  let userPaused = !prefersMotion;
+  let hovering = false;
+  let focusedInside = false;
+  let onScreen = true;
+  let idleUntil = 0;
+  let lastFrame = 0;
+
+  const measureLoop = () => {
+    const firstClone = track.querySelector('.obra[inert]');
+    const first = track.querySelector('.obra');
+    loopWidth = firstClone && first ? firstClone.offsetLeft - first.offsetLeft : 0;
+  };
+  const isRunning = () => !userPaused && !hovering && !focusedInside && onScreen && !document.hidden &&
+    loopWidth > 0 && performance.now() > idleUntil && !lightbox.classList.contains('open');
+
+  const tick = (now) => {
+    const dt = lastFrame ? Math.min(now - lastFrame, 64) / 1000 : 0;
+    lastFrame = now;
+    if (isRunning()) {
+      if (Math.abs(track.scrollLeft - position) > 2) position = track.scrollLeft;
+      position += SPEED * dt;
+      if (position >= loopWidth) position -= loopWidth;
+      track.scrollLeft = position;
+    }
+    requestAnimationFrame(tick);
+  };
+
+  const holdForInteraction = (ms = 2600) => { idleUntil = performance.now() + ms; };
+  const syncPosition = () => { position = track.scrollLeft; };
+
+  const renderCarousel = () => {
+    const items = visible.map((i) => cardFor(i, false)).join('');
+    track.innerHTML = items;
+    const overflowing = track.scrollWidth > track.clientWidth + 40;
+    if (overflowing) track.insertAdjacentHTML('beforeend', visible.map((i) => cardFor(i, true)).join(''));
+    track.scrollLeft = 0;
+    position = 0;
+    measureLoop();
+    const label = activeFilter === 'todos' ? 'Todos los proyectos' : chips.find((c) => c.dataset.f === activeFilter).firstChild.textContent;
+    statusLine.textContent = `${label} · ${visible.length} ${visible.length === 1 ? 'proyecto' : 'proyectos'}`;
+    if (hasGsap && prefersMotion) {
+      gsap.fromTo($$('.obra', track).slice(0, 6), { x: 48, opacity: 0 }, { x: 0, opacity: 1, duration: 0.8, stagger: 0.07, ease: 'power3.out', clearProps: 'transform,opacity' });
+    }
+  };
+
+  const paintPauseButton = () => {
+    pauseButton.querySelector('use').setAttribute('href', userPaused ? '#i-play' : '#i-pausa');
+    pauseButton.setAttribute('aria-label', userPaused ? 'Reanudar el desplazamiento automático' : 'Pausar el desplazamiento automático');
+  };
+  pauseButton.addEventListener('click', () => { userPaused = !userPaused; syncPosition(); paintPauseButton(); });
+  paintPauseButton();
+
+  const step = (direction) => {
+    const card = track.querySelector('.obra');
+    if (!card) return;
+    const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+    if (direction < 0 && track.scrollLeft < 4 && loopWidth) track.scrollLeft += loopWidth;
+    holdForInteraction(3200);
+    track.scrollBy({ left: direction * (card.offsetWidth + gap), behavior: prefersMotion ? 'smooth' : 'auto' });
+  };
+  $('#car-prev').addEventListener('click', () => step(-1));
+  $('#car-next').addEventListener('click', () => step(1));
+
+  carousel.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') hovering = true; });
+  carousel.addEventListener('pointerleave', () => { hovering = false; syncPosition(); });
+  carousel.addEventListener('focusin', () => { focusedInside = true; });
+  carousel.addEventListener('focusout', () => { focusedInside = carousel.contains(document.activeElement); syncPosition(); });
+  ['pointerdown', 'wheel', 'touchstart'].forEach((type) => track.addEventListener(type, () => holdForInteraction(), { passive: true }));
+  track.addEventListener('scroll', () => {
+    if (loopWidth && track.scrollLeft >= loopWidth + 1 && !isRunning()) { track.scrollLeft -= loopWidth; }
+  }, { passive: true });
+  new IntersectionObserver(([entry]) => { onScreen = entry.isIntersecting; }).observe(carousel);
+
   chips.forEach((chip) => chip.addEventListener('click', () => {
     chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
-    if (!(hasGsap && window.Flip && prefersMotion)) { applyFilter(chip.dataset.f); return; }
-    const state = Flip.getState(cards);
-    applyFilter(chip.dataset.f);
-    Flip.from(state, {
-      duration: 0.7, ease: 'power3.inOut', absolute: true, scale: false,
-      onEnter: (els) => gsap.fromTo(els, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, delay: 0.15 }),
-      onLeave: (els) => gsap.to(els, { opacity: 0, duration: 0.3 }),
-      onComplete: () => ScrollTrigger.refresh()
-    });
+    activeFilter = chip.dataset.f;
+    visible = projects.map((p, i) => i).filter((i) => activeFilter === 'todos' || projects[i].categoria === activeFilter);
+    moveIndicator();
+    renderCarousel();
   }));
 
   /* ---------- Lightbox ---------- */
@@ -93,9 +183,9 @@
     $('#lb-arte').innerHTML = `<img src="${p.imagenes[index]}" alt="${p.titulo}, imagen ${index + 1} de ${p.imagenes.length}">`;
     $$('#lb-fotos button').forEach((b, i) => b.setAttribute('aria-current', String(i === index)));
   };
-  const showProject = (i) => {
-    current = (i + projects.length) % projects.length;
-    const p = projects[current];
+  const showProject = (position) => {
+    current = (position + visible.length) % visible.length;
+    const p = projects[visible.at(current)];
     const hasImages = p.imagenes && p.imagenes.length;
     $('#lb-tipo').textContent = `${NOMBRES_CATEGORIA[p.categoria] || ''} · ${p.anio}${p.ejemplo ? ' · Ejemplo' : ''}`;
     $('#lb-titulo').textContent = p.titulo;
@@ -121,8 +211,11 @@
     document.body.style.overflow = '';
     if (lastFocus) lastFocus.focus();
   };
-  grid.addEventListener('click', (e) => { const card = e.target.closest('.obra'); if (card) openLightbox(Number(card.dataset.i)); });
-  $('#lb-fotos').addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) showImage(projects[current], Number(b.dataset.k)); });
+  track.addEventListener('click', (e) => {
+    const card = e.target.closest('.obra');
+    if (card) openLightbox(Math.max(0, visible.indexOf(Number(card.dataset.i))));
+  });
+  $('#lb-fotos').addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) showImage(projects[visible.at(current)], Number(b.dataset.k)); });
   $('#lb-cerrar').addEventListener('click', closeLightbox);
   $('#lb-prev').addEventListener('click', () => showProject(current - 1));
   $('#lb-next').addEventListener('click', () => showProject(current + 1));
@@ -162,6 +255,12 @@
     message.textContent = `Abriendo tu programa de correo. Si no se abre, escribe a ${email}.`;
     location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   });
+
+  /* Arranque del carrusel (después del visor, que la deriva consulta) */
+  renderCarousel();
+  moveIndicator();
+  requestAnimationFrame(tick);
+  addEventListener('resize', () => { moveIndicator(); measureLoop(); }, { passive: true });
 
   /* ---------- Recorrido cinematográfico ---------- */
   if (!hasGsap || !prefersMotion) return;
@@ -303,13 +402,6 @@
     scrollTo({ top: timeline.scrollTrigger.labelToScroll(button.dataset.label), behavior: 'smooth' });
   }));
 
-  /* Entrada de tarjetas: se desplazan, nunca parten invisibles */
-  ScrollTrigger.batch('.obra', {
-    once: true,
-    start: 'top 92%',
-    onEnter: (batch) => gsap.from(batch, { y: 60, duration: 1, stagger: 0.1, ease: 'power3.out' })
-  });
-  gsap.to('.retrato-ph', { yPercent: 8, ease: 'none', scrollTrigger: { trigger: '.retrato', start: 'top bottom', end: 'bottom top', scrub: true } });
 
   buildJourney();
 

@@ -8,7 +8,7 @@ Sitio web de una sola página para el portafolio de diseño aplicado a la cultur
 index.html          Página y contenidos fijos (textos, secciones, contacto)
 css/estilos.css     Estilos, colores y tipografías (variables al inicio del archivo)
 js/proyectos.js     Lista de proyectos de la grilla: aquí se agregan los trabajos
-js/main.js          Recorrido animado, filtros, visor de proyectos y formulario
+js/main.js          Recorrido animado, carrusel con filtros, visor de proyectos y formulario
 assets/img/         Fotografías del portafolio
 ```
 
@@ -18,7 +18,7 @@ assets/img/         Fotografías del portafolio
 2. Abre `js/proyectos.js`, duplica un bloque `{ ... }` y completa título, año, institución, rol, descripción y ficha técnica.
 3. Escribe las rutas en `imagenes`, por ejemplo `["assets/img/festival-afiche.jpg", "assets/img/festival-programa.jpg"]`. La primera es la portada.
 4. Elige `encuadre: "cubrir"` para fotografías de sala o `"contener"` para afiches, catálogos y programas.
-5. Los filtros de la grilla muestran solo las áreas que tienen proyectos.
+5. Los filtros del carrusel muestran solo las áreas que tienen proyectos, con su número.
 
 ## Imágenes
 
