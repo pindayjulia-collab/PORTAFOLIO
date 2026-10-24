@@ -119,13 +119,13 @@ em{font-style:italic}
 .cine .escena{position:absolute;inset:0;display:flex;align-items:center;padding-left:max(var(--gutter-l),calc((100vw - 1240px)/2 + 20px));padding-right:24px}
 .cine .escena-fig{display:none}
 .cine .escena h1{font-size:clamp(2.4rem,4.6vw,4.4rem)}
-.cine .indice{display:flex;position:absolute;right:var(--gutter-r);bottom:calc(24px + env(safe-area-inset-bottom,0px));gap:22px;z-index:3}
+.cine .indice{display:flex;position:absolute;left:50%;transform:translateX(-50%);bottom:calc(24px + env(safe-area-inset-bottom,0px));gap:22px;z-index:3}
 .indice button{background:none;border:0;padding:6px 0;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);position:relative;transition:var(--t)}
 .indice button::before{content:"";position:absolute;left:0;top:0;height:1px;width:0;background:var(--black-text);transition:width .5s var(--ease)}
 .indice button:hover,.indice button.activo{color:var(--black-text)}
 .indice button.activo::before{width:100%}
-.cine .salida{display:block;position:absolute;left:50%;bottom:calc(9% + env(safe-area-inset-bottom,0px));transform:translateX(-50%);font:italic 400 clamp(1.4rem,2.6vw,2rem)/1 var(--font-serif);color:var(--black-text);white-space:nowrap;z-index:3}
-.pista{position:absolute;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:flex;align-items:center;gap:8px;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.cine .salida{display:block;position:absolute;left:50%;bottom:calc(104px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);font:italic 400 clamp(1.4rem,2.6vw,2rem)/1 var(--font-serif);color:var(--black-text);white-space:nowrap;z-index:3}
+.pista{position:absolute;left:50%;bottom:calc(78px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:flex;align-items:center;gap:8px;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
 .pista svg{width:16px;height:16px;animation:bajar 1.8s ease-in-out infinite}
 @keyframes bajar{0%,100%{transform:translateY(-2px)}50%{transform:translateY(4px)}}
 
@@ -447,10 +447,10 @@ details p{margin-top:8px;font-size:.8rem;color:var(--muted);max-width:40ch}
   .cine .escena h2{font-size:clamp(1.6rem,6.6vw,2.2rem)}
   .cine .escena .lead{font-size:.98rem}
   .cine .escena .etiquetas,.cine .escena-0 .btn-ghost{display:none}
-  .cine .indice{left:var(--gutter-l);right:var(--gutter-r);justify-content:space-between;gap:8px}
+  .cine .indice{left:var(--gutter-l);right:var(--gutter-r);transform:none;justify-content:space-between;gap:8px}
   .indice button{font-size:.62rem;letter-spacing:.08em}
   .cine .pista{display:none}
-  .cine .salida{bottom:calc(10% + env(safe-area-inset-bottom,0px))}
+  .cine .salida{bottom:calc(10% + 40px + env(safe-area-inset-bottom,0px))}
 }
 @media (max-width:600px){
   .carrusel{--alto:min(98vw,460px);--reposo:min(76vw,360px)}

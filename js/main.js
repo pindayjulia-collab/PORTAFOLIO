@@ -285,7 +285,8 @@
   const buildJourney = () => {
     const rect = camera.getBoundingClientRect();
     const U = Math.min(rect.width, rect.height);
-    const k = rect.width < 820 ? 0.82 : 1;
+    const isPhone = matchMedia('(max-width: 820px)').matches;
+    const k = isPhone ? 0.82 : 1;
     camera.style.setProperty('--u', `${U}px`);
     const size = {
       seal: { width: U * 0.4, height: U * 0.4 },
@@ -390,7 +391,7 @@
         /* Salida: el afiche se vuelve miniatura e introduce la grilla de proyectos */
         .to(scenes[4], { autoAlpha: 0, y: -40, duration: 0.5 }, 9)
         .to('.confeti', { autoAlpha: 0, scale: 0, stagger: 0.01, duration: 0.5 }, 9)
-        .to(piece, { scale: 0.34, rotation: 0, y: k < 1 ? U * 0.62 : 0, duration: 1 }, 9)
+        .to(piece, { scale: 0.34, rotation: 0, x: isPhone ? 0 : innerWidth / 2 - (rect.left + rect.width / 2), y: isPhone ? U * 0.62 : 0, duration: 1 }, 9)
         .to('.salida', { autoAlpha: 1, duration: 0.5 }, 9.4);
     });
     markIndex(0);
